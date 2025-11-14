@@ -342,6 +342,50 @@
       renderScene(0);
     }
 
+    function showEndingScreen() {
+      document.body.innerHTML = `
+      <div style="
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#000;
+        color:#f5f5f5;
+        font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei',sans-serif;
+        text-align:center;
+        padding:24px;
+        box-sizing:border-box;
+      ">
+        <div>
+          <h2 style="font-size:1.6rem;margin-bottom:16px;">
+            🎭 感謝遊玩《KOICHI 攻略計畫》
+          </h2>
+          <p style="line-height:1.6;">
+            你的攻略之旅到這裡告一段落。<br>
+            下次再來找光一吧。✨
+          </p>
+          <button style="
+            margin-top:24px;
+            padding:10px 20px;
+            border:none;
+            border-radius:8px;
+            background:#f5e04d;
+            color:#222;
+            font-size:1rem;
+            font-weight:600;
+            cursor:pointer;
+          " onclick="restartGameFromEnding()">
+            重新開始遊戲
+          </button>
+        </div>
+      </div>
+    `;
+    }
+
+    function restartGameFromEnding() {
+      location.reload();
+    }
+
     btnA.addEventListener("click", () => {
       const sc = scenes[currentScene];
       if (!sc) return;
@@ -360,13 +404,8 @@
       if (!sc) return;
 
       if (sc.ending) {
-        // 結局：B = 離開
-        const sure = confirm("要關閉這個頁面嗎？\n（按取消回到開頭）");
-        if (sure) {
-          window.close(); // 大多數瀏覽器會忽略，但沒關係
-        } else {
-          restartGame();
-        }
+        // 結局：B = 顯示結束畫面
+        showEndingScreen();
         return;
       }
 
@@ -375,6 +414,7 @@
 
     // 初始化
     renderScene(0);
+
   </script>
 </body>
 
